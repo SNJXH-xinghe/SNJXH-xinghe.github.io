@@ -1,54 +1,193 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>我的 AI 食疗＋运动 平台</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>一体化健康顾问 & 食疗＋运动 AI 平台</title>
 
-  <!-- 1. 引入 Gradio 官方 Web 组件脚本 -->
+  <!-- 引入 Gradio 官方 Web 组件脚本 -->
   <script
     type="module"
     src="https://gradio.s3-us-west-2.amazonaws.com/5.25.2/gradio.js"
   ></script>
 
   <style>
-    /* 简易居中与留白 */
+    /* 全局样式 */
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      font-family: sans-serif;
+      font-family: "Helvetica Neue", Arial, sans-serif;
       background: #f7f7f7;
+      color: #333;
+      line-height: 1.6;
     }
     header {
-      background: #4CAF50;
+      background: #4caf50;
       color: white;
-      padding: 1rem;
+      padding: 1.5rem 1rem;
       text-align: center;
     }
-    main {
-      padding: 1rem;
-      display: flex;
-      justify-content: center;
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
     }
-    gradio-app {
-      /* 你可以调整宽高，百分比或固定 px 都行 */
-      width: 90vw;
-      height: 80vh;
-      border: 1px solid #ddd;
+    header nav {
+      margin-top: 0.5rem;
+    }
+    header nav a {
+      color: white;
+      margin: 0 0.75rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    header nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+    .intro {
+      max-width: 800px;
+      background: white;
+      padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 100%;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .feature-card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .feature-card h3 {
+      margin-top: 0;
+      color: #4caf50;
+    }
+    section#demo {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .embed {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .embed h2 {
+      margin-top: 0;
+      color: #4caf50;
+      text-align: center;
+    }
+    gradio-app {
+      width: 100%;
+      height: 60vh;
+      border: none;
+      border-radius: 4px;
+    }
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      background: #333;
+      color: #ccc;
+      text-align: center;
+      width: 100%;
+    }
+    footer a {
+      color: #4caf50;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>一体化食疗＋运动 AI 平台</h1>
+    <h1>一体化健康顾问 & 食疗＋运动 AI 平台</h1>
+    <nav>
+      <a href="#intro">简介</a>
+      <a href="#features">功能</a>
+      <a href="#demo">演示</a>
+      <a href="#contact">联系我们</a>
+    </nav>
   </header>
 
   <main>
-    <!-- 2. 把下面 src 换成你自己的 HF Space 地址 -->
-    <gradio-app src="https://snjxh-diet-exercise.hf.space"></gradio-app>
+    <!-- 平台简介 -->
+    <section id="intro" class="intro">
+      <h2>平台简介</h2>
+      <p>
+        本平台结合华为 Health Kit 数据与 AI 驱动的 DeepSeek 分析，<br/>
+        支持用户上传或 API 拉取健康数据（JSON/XML/CSV），即时生成可下载的 CSV 预览，<br/>
+        并基于个人基础疾病标签和饮食偏好，自动推荐营养均衡的食谱方案。<br/>
+        同时，配合健康顾问模块，提供运动与生活方式建议，帮助您实现全面的健康管理。
+      </p>
+    </section>
+
+    <!-- 平台特色 -->
+    <section id="features" class="intro">
+      <h2>核心功能</h2>
+      <div class="features">
+        <div class="feature-card">
+          <h3>多格式数据接入</h3>
+          <p>支持 JSON / XML / CSV 文件上传，或 OAuth2 API 一键拉取</p>
+        </div>
+        <div class="feature-card">
+          <h3>即时数据预览</h3>
+          <p>上传后实时渲染 CSV 表格，并提供下载链接</p>
+        </div>
+        <div class="feature-card">
+          <h3>健康风险评估</h3>
+          <p>结合已选基础疾病标签，评估代谢、心血管等多系统风险</p>
+        </div>
+        <div class="feature-card">
+          <h3>个性化食谱推荐</h3>
+          <p>根据用户偏好与健康状况，生成多道营养食谱</p>
+        </div>
+        <div class="feature-card">
+          <h3>运动 & 生活方式建议</h3>
+          <p>基于健康数据提供运动处方与日常健康指导</p>
+        </div>
+        <div class="feature-card">
+          <h3>互动循环查看</h3>
+          <p>“下一道菜”按钮，可循环浏览推荐菜谱</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gradio 应用嵌入 -->
+    <section id="demo">
+      <div class="embed">
+        <h2>健康顾问</h2>
+        <gradio-app src="https://snjxh-health-adviser.hf.space"></gradio-app>
+      </div>
+      <div class="embed">
+        <h2>食疗＋运动</h2>
+        <gradio-app src="https://snjxh-diet-exercise.hf.space"></gradio-app>
+      </div>
+    </section>
   </main>
+
+  <footer id="contact">
+    <p>&copy; 2025 我的 AI 平台团队</p>
+    <p>GitHub: <a href="https://github.com/SNJXH-xinghe/SNJXH-xinghe.github.io" target="_blank">yourrepo/yourproject</a></p>
+    <p>Email: <a href="1120114390@qq.com">contact@yourdomain.com</a></p>
+  </footer>
 
 </body>
 </html>
